@@ -47,7 +47,7 @@ class PostPicture extends Command
             // $this->call('App\Http\Controllers\ExampleController@parse');
             $contr->parse();
             sleep(60);
-            $this->call('schedule:run');
+            // $this->call('schedule:run');
 // 
         }
        

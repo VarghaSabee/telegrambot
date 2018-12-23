@@ -25,6 +25,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('post:picture')->everyMinute();
-        $schedule->command('post:picture')->cron('0 */2 * * *');
+        $schedule->command('post:picture')->cron('*/1 * * * *');
     }
 }
