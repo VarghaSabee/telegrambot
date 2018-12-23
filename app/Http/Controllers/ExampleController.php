@@ -75,6 +75,9 @@ class ExampleController extends Controller
                 $imgArr[$i-1] = $im;
 
             }
+            $image = array_shift($imgArr);
+           
+            $this->botsend($image->url);
 
             $this->setJSONImages($imgArr);
             // return view("parser", ["images" => json_encode($imagesArray), "nextpage" => $next]);
