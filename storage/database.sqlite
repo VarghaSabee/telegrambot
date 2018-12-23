@@ -1,0 +1,10 @@
+-- TABLE
+CREATE TABLE demo (id integer primary key, name varchar(20), hint text);
+CREATE TABLE postimg (id Integer Primary key, post_count integer default 0, name varchar);
+ 
+-- INDEX
+ 
+-- TRIGGER
+ 
+-- VIEW
+ 
