@@ -50,7 +50,7 @@ class PostPicture extends Command
             \Log::info('<info>[' . Carbon::now()->format('Y-m-d H:i:s') . ']</info> Calling scheduler post Image');
 
             $this->parse();
-            sleep(30);
+            sleep(60);
             // $this->call('schedule:run');
     }
     public function parse()
