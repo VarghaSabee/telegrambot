@@ -26,5 +26,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('post:picture')->everyMinute();
         $schedule->command('post:picture')->cron('0 */2 * * *');
+
     }
 }
