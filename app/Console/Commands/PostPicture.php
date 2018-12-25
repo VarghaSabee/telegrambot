@@ -47,11 +47,16 @@ class PostPicture extends Command
      */
     public function handle()
     {
+        $time = 60*60; // one houre
+
+        while(true){
+
             \Log::info('<info>[' . Carbon::now()->format('Y-m-d H:i:s') . ']</info> Calling scheduler post Image');
 
             $this->parse();
-            sleep(60);
+            sleep($time);
             // $this->call('schedule:run');
+        }
     }
     public function parse()
     {
