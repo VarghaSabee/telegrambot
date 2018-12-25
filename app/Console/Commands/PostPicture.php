@@ -55,7 +55,7 @@ class PostPicture extends Command
 
             $this->parse();
             sleep($time);
-            // $this->call('schedule:run');
+            $this->call('schedule:run');
         }
     }
     public function parse()
