@@ -49,9 +49,10 @@ class PostPicture extends Command
 
     public function handle()
     {
-        $this->info('Waiting '. $this->nextMinute(). ' for next run of scheduler');
-        sleep($this->nextMinute());
-        $this->runScheduler();
+        $this->parse();
+        // $this->info('Waiting '. $this->nextMinute(). ' for next run of scheduler');
+        // sleep($this->nextMinute());
+        // $this->runScheduler();
     }
     /**
      * Main recurring loop function.
@@ -63,13 +64,13 @@ class PostPicture extends Command
      */
     protected function runScheduler()
     {
-        $fn = $this->option('queue') ? 'queue' : 'call';
-        $this->info('Running scheduler');
-        Artisan::$fn('schedule:run');
-        $this->parse();
-        $this->info('\ncompleted, sleeping..');
-        sleep($this->nextMinute());
-        $this->runScheduler();
+        // $fn = $this->option('queue') ? 'queue' : 'call';
+        // $this->info('Running scheduler');
+        // Artisan::$fn('schedule:run');
+        // $this->parse();
+        // $this->info('\ncompleted, sleeping..');
+        // sleep($this->nextMinute());
+        // $this->runScheduler();
     }
     /**
      * Works out seconds until the next minute starts;
