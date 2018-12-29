@@ -13,7 +13,8 @@
         "wn/lumen-generators": "^1.3",
         "guzzlehttp/guzzle": "^6.2",
         "guzzlehttp/promises": "~1.3",
-        "guzzlehttp/psr7": "~1.0"
+        "guzzlehttp/psr7": "~1.0",
+        "ext-pdo_sqlite": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
