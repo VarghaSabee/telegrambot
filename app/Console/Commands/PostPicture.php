@@ -208,7 +208,8 @@ public function getImagesJSON()
 public function setJSONImages($images)
 {
     $file_path = realpath(__DIR__ . '/../../../database/images.json');
-    return file_put_contents($file_path,json_encode($images));
+    file_put_contents($file_path,json_encode($images));
+    return true;
 }
    
   
