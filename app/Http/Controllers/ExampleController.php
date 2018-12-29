@@ -169,7 +169,8 @@ class ExampleController extends Controller
     {
         // $file_path = realpath(__DIR__ . '/../../../database/images.json');
         $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/latest";
-        return json_decode(file_get_contents($file_path), true);
+        $o =  json_decode(file_get_contents($file_path), true);
+        dd($o[0]['url']);
     }
     public function setJSONImages($images)
     {

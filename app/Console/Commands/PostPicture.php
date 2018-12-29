@@ -56,7 +56,7 @@ class PostPicture extends Command
 
         $images = $this->getImagesJSON();
 
-        if (sizeof($images) < 1) {
+        if (sizeof($images) < 2) {
             $instagram = new \InstagramScraper\Instagram();
 
             $medias = [];
@@ -113,7 +113,9 @@ class PostPicture extends Command
             $images = $this->getImagesJSON();
             $image = array_shift($images);
            
+            if(sizeof($images) > 0 ){
             $this->setJSONImages($images);
+            }
             $this->botsend($image['url']);
             // dd($image['url']);
         }
@@ -151,6 +153,7 @@ class PostPicture extends Command
         // $file_path = realpath(__DIR__ . '/../../../database/images.json');
         $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/latest";
         return json_decode(file_get_contents($file_path), true);
+        // dd(urlencode($o[0]->$photo_url));
     }
     public function setJSONImages($images)
     {
