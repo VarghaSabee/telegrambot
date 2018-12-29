@@ -9,6 +9,8 @@ use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
 use unreal4u\TelegramAPI\TgLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 class ExampleController extends Controller
 {
 
@@ -165,13 +167,13 @@ class ExampleController extends Controller
 
     public function getImagesJSON()
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        $file_path = base_path(). '/public/images.json';
+        // return json_decode(file_get_contents($file_path), true);
         return json_decode(file_get_contents($file_path), true);
-        // dd(json_decode(file_get_contents($file_path), true) );
     }
     public function setJSONImages($images)
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        $file_path = base_path(). '/public/images.json';       
         return file_put_contents($file_path,json_encode($images));
     }
     public function carbon()
