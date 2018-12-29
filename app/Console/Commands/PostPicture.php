@@ -201,17 +201,15 @@ public function add()
 
 public function getImagesJSON()
 {
-    $file_path = realpath(__DIR__ . '/../../../database/images.json');
+    $file_path = base_path(). '/public/images.json';
+    // return json_decode(file_get_contents($file_path), true);
     return json_decode(file_get_contents($file_path), true);
-    // dd(json_decode(file_get_contents($file_path), true) );
 }
 public function setJSONImages($images)
 {
-    $file_path = realpath(__DIR__ . '/../../../database/images.json');
-    file_put_contents($file_path,json_encode($images));
-    return true;
-}
-   
+    $file_path = base_path(). '/public/images.json';       
+    return file_put_contents($file_path,json_encode($images));
+} 
   
 
 
