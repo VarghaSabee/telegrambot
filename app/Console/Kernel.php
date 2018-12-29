@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\\Console\\Commands\\PostPicture'
+        Commands\PostPicture::class
     ];
 
     /**
@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('post:picture')->everyMinute();
-        $schedule->command('post:picture')->cron('*/1 * * * *');
+        // $schedule->command('post:picture')->cron('*/1 * * * *');
 
     }
 }

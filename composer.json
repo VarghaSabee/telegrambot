@@ -10,7 +10,10 @@
         "raiym/instagram-php-scraper": "^0.8.27",
         "unreal4u/telegram-api": "~3.4",
         "vlucas/phpdotenv": "~2.2",
-        "wn/lumen-generators": "^1.3"
+        "wn/lumen-generators": "^1.3",
+        "guzzlehttp/guzzle": "^6.2",
+        "guzzlehttp/promises": "~1.3",
+        "guzzlehttp/psr7": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

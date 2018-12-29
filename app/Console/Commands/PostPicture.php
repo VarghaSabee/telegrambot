@@ -13,6 +13,7 @@ use React\EventLoop\Factory;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
 use unreal4u\TelegramAPI\TgLog;
+use GuzzleHttp\Client;
 
 class PostPicture extends Command
 {
@@ -47,16 +48,7 @@ class PostPicture extends Command
      */
     public function handle()
     {
-        $time = 60*60; // one houre
-
-        while(true){
-
-            \Log::info('<info>[' . Carbon::now()->format('Y-m-d H:i:s') . ']</info> Calling scheduler post Image');
-
-            $this->parse();
-            sleep($time);
-            $this->call('schedule:run');
-        }
+         $this->parse();
     }
     public function parse()
     {
@@ -156,12 +148,19 @@ class PostPicture extends Command
     
     public function getImagesJSON()
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/latest";
         return json_decode(file_get_contents($file_path), true);
     }
     public function setJSONImages($images)
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
-        return file_put_contents($file_path,json_encode($images));
+        $client = new Client();
+        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        $r = $client->request('PUT', 'https://api.jsonbin.io/b/5c2786d3412d482eae5759f4', [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($images),
+        ]);
     }
 }

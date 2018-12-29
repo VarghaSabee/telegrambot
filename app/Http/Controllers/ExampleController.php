@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Images;
 use App\Post;
+use GuzzleHttp\Client;
 use React\EventLoop\Factory;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
@@ -72,11 +73,11 @@ class ExampleController extends Controller
                 $im->id = "" . $i;
                 $im->url = $media->getImageHighResolutionUrl();
                 $im->author = "";
-                $imgArr[$i-1] = $im;
+                $imgArr[$i - 1] = $im;
 
             }
             $image = array_shift($imgArr);
-           
+
             $this->botsend($image->url);
 
             $this->setJSONImages($imgArr);
@@ -84,7 +85,7 @@ class ExampleController extends Controller
         } else {
             $images = $this->getImagesJSON();
             $image = array_shift($images);
-           
+
             $this->setJSONImages($images);
             $this->botsend($image['url']);
             // dd($image['url']);
@@ -165,13 +166,26 @@ class ExampleController extends Controller
 
     public function getImagesJSON()
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
-        return json_decode(file_get_contents($file_path), true);
-        // dd(json_decode(file_get_contents($file_path), true) );
+        $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/";
+        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        // return json_decode(file_get_contents($file_path), true);
+        dd(json_decode(file_get_contents($file_path), true) );
+        // $client = new Client();
+        // $response = $client->get($url)->getBody();
+
+        // dd($response);
     }
     public function setJSONImages($images)
     {
-        $file_path = realpath(__DIR__ . '/../../../database/images.json');
-        return file_put_contents($file_path,json_encode($images));
+        $client = new Client();
+        $r = $client->request('PUT', 'https://api.jsonbin.io/b/5c2786d3412d482eae5759f4', [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($images),
+        ]);
+        
+        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
+        // return file_put_contents($file_path,json_encode($images));
     }
 }
