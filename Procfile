@@ -1,2 +1,2 @@
 web: vendor/bin/heroku-php-apache2 public/ 
-scheduler: php artisan post:picture
+scheduler: php -d memory_limit=512M artisan schedule:cron

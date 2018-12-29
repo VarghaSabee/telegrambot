@@ -8,7 +8,7 @@ use React\EventLoop\Factory;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
 use unreal4u\TelegramAPI\TgLog;
-
+use Carbon\Carbon;
 class ExampleController extends Controller
 {
 
@@ -173,5 +173,10 @@ class ExampleController extends Controller
     {
         $file_path = realpath(__DIR__ . '/../../../database/images.json');
         return file_put_contents($file_path,json_encode($images));
+    }
+    public function carbon()
+    {
+        $current = Carbon::now();
+        return 60*60 - $current->second;
     }
 }

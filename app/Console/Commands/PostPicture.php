@@ -21,7 +21,7 @@ class PostPicture extends Command
      *
      * @var string
      */
-    protected $signature = 'post:picture';
+    protected $signature = 'schedule:cron {--queue}';
 
     /**
      * The console command description.
@@ -44,19 +44,42 @@ class PostPicture extends Command
      * Execute the console command.
      *
      * @return mixed
-     */
+     * */
+
+
     public function handle()
     {
-        $time = 60*60; // one houre
-
-        while(true){
-
-            \Log::info('<info>[' . Carbon::now()->format('Y-m-d H:i:s') . ']</info> Calling scheduler post Image');
-
-            $this->parse();
-            sleep($time);
-            $this->call('schedule:run');
-        }
+        $this->info('Waiting '. $this->nextMinute(). ' for next run of scheduler');
+        sleep($this->nextMinute());
+        $this->runScheduler();
+    }
+    /**
+     * Main recurring loop function.
+     * Runs the scheduler every minute.
+     * If the --queue flag is provided it will run the scheduler as a queue job.
+     * Prevents overruns of cron jobs but does mean you need to have capacity to run the scheduler
+     * in your queue within 60 seconds.
+     *
+     */
+    protected function runScheduler()
+    {
+        $fn = $this->option('queue') ? 'queue' : 'call';
+        $this->info('Running scheduler');
+        Artisan::$fn('schedule:run');
+        $this->parse();
+        $this->info('\ncompleted, sleeping..');
+        sleep($this->nextMinute());
+        $this->runScheduler();
+    }
+    /**
+     * Works out seconds until the next minute starts;
+     *
+     * @return int
+     */
+    protected function nextMinute()
+    {
+        $current = Carbon::now();
+        return (60*60) -$current->second;
     }
     public function parse()
     {
