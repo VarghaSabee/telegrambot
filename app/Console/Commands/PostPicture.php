@@ -50,6 +50,7 @@ class PostPicture extends Command
     public function handle()
     {
         $this->parse();
+        sleep(60);
         // $this->info('Waiting '. $this->nextMinute(). ' for next run of scheduler');
         // sleep($this->nextMinute());
         // $this->runScheduler();
