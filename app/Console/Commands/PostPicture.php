@@ -66,7 +66,7 @@ class PostPicture extends Command
             $post = Post::where(['active' => 'active'])->first();
 
             if ($post->nexturl == '') {
-                $result = $instagram->getPaginateMedias($this->getActiveName(), $post->nexturl);
+                $result = $instagram->getPaginateMedias('onlyprfectgirls', $post->nexturl);
                 $medias = $result['medias'];
                 if ($result['hasNextPage'] === true) {
                     $post->nexturl = $result['maxId'];
@@ -77,7 +77,7 @@ class PostPicture extends Command
                 $post->save();
 
             } else {
-                $result = $instagram->getPaginateMedias($this->getActiveName(), $post->nexturl);
+                $result = $instagram->getPaginateMedias('onlyprfectgirls', $post->nexturl);
                 $medias = $result['medias'];
 
                 if ($result['hasNextPage'] === true) {
