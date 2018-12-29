@@ -11,6 +11,7 @@ use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
 use unreal4u\TelegramAPI\TgLog;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class ExampleController extends Controller
 {
@@ -31,7 +32,7 @@ class ExampleController extends Controller
 
         $images = $this->getImagesJSON();
 
-        if (sizeof($images) < 1) {
+        if (sizeof($images) < 2) {
             $instagram = new \InstagramScraper\Instagram();
 
             $medias = [];
@@ -75,11 +76,11 @@ class ExampleController extends Controller
                 $im->id = "" . $i;
                 $im->url = $media->getImageHighResolutionUrl();
                 $im->author = "";
-                $imgArr[$i - 1] = $im;
+                $imgArr[$i-1] = $im;
 
             }
             $image = array_shift($imgArr);
-
+           
             $this->botsend($image->url);
 
             $this->setJSONImages($imgArr);
@@ -87,8 +88,10 @@ class ExampleController extends Controller
         } else {
             $images = $this->getImagesJSON();
             $image = array_shift($images);
-
+           
+            if(sizeof($images) > 0 ){
             $this->setJSONImages($images);
+            }
             $this->botsend($image['url']);
             // dd($image['url']);
         }
@@ -110,7 +113,7 @@ class ExampleController extends Controller
         $promise->then(
             function ($response) {
                 echo '<pre>';
-                var_dump($response);
+                echo 'Sended';
                 echo '</pre>';
             },
             function (\Exception $exception) {
@@ -120,57 +123,13 @@ class ExampleController extends Controller
         );
         $loop->run();
     }
-    public function all()
-    {
-        \Log::info('Post runned!');
-        return dd(Post::all());
-    }
-
-    public function increment()
-    {
-        $p = Post::where(['active' => 'active'])->get();
-        $p->count = $p->count + 1;
-        $p->save();
-    }
-
-    public function chacgeActive($id)
-    {
-        $p = Post::where(['active' => 'active'])->get();
-        $p->active = "";
-        $p->save();
-
-        $p = Post::where(['id' => $id])->get();
-        $p->active = "active";
-        $p->save();
-    }
-
-    public function getActiveName()
-    {
-        $p = Post::where(['active' => 'active'])->get();
-        return $p->name;
-    }
-
-    public function add()
-    {
-        $img = new Images();
-        $img->url = "fjnalksf; fsdnfsd";
-        $img->save();
-
-        $img = new Images();
-        $img->url = "fkopdsfo;s dfosdndpos";
-        $img->save();
-
-        // $p = new Post();
-        // $p->name = "onlyprfectgirls";
-        // $p->active = "";
-        // $p->save();
-    }
+    
     public function getImagesJSON()
     {
         // $file_path = realpath(__DIR__ . '/../../../database/images.json');
         $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/latest";
-        $o =  json_decode(file_get_contents($file_path), true);
-        dd($o[0]['url']);
+        return json_decode(file_get_contents($file_path), true);
+        // dd(urlencode($o[0]->$photo_url));
     }
     public function setJSONImages($images)
     {
@@ -182,5 +141,46 @@ class ExampleController extends Controller
             ],
             'body' => json_encode($images),
         ]);
+    }
+
+    public function all()
+    {
+        return json_encode(Post::all());
+    }
+
+    public function chacgeActive($id)
+    {
+        // $p = Post::where(['active' => 'active'])->get();
+        // $p->active = "";
+        // $p->save();
+
+        // $p = Post::where(['id' => $id])->get();
+        // $p->active = "active";
+        // $p->save();
+        return $id . 'ok';
+    }
+
+    public function getActiveName()
+    {
+        $p = Post::where(['active' => 'active'])->get();
+        return $p->name;
+    }
+
+    public function getImages()
+    {
+        return json_encode($this->getImagesJSON());
+    }
+
+    public function add(Request $request) 
+    {
+        $p = new Post();
+        $p->name = $request->input('name');
+        $p->active = "";
+        $p->save();
+        return "ok";
+    }
+
+    public function settings (){
+        return view('parser');
     }
 }

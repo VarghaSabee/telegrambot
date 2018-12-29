@@ -20,4 +20,6 @@ $router->get('/all', 'ExampleController@all');
 $router->get('/add', 'ExampleController@add');
 $router->get('/get', 'ExampleController@getImagesJSON');
 $router->get('/set', 'ExampleController@setJSONImages');
-$router->get('/carbon', 'ExampleController@carbon');
+$router->get('/settings', 'ExampleController@settings');
+$router->get('/activate/{id}', 'ExampleController@chacgeActive');
+$router->get('/images', 'ExampleController@getImages');
