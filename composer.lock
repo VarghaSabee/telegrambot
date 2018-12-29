@@ -103,7 +103,9 @@
                 "amphp/socket": "^0.10.5",
                 "amphp/uri": "^0.1",
                 "kelunik/certificate": "^1.1",
-                "php": ">=7.0"
+                "php": ">=7.0",
+                "ext-pdo_sqlite": "*",
+                "sqlite3": "*"
             },
             "require-dev": {
                 "amphp/phpunit-util": "^1",
