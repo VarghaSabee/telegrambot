@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace App\Console\Commands;
@@ -135,7 +136,7 @@ class PostPicture extends Command
         $promise->then(
             function ($response) {
                 echo '<pre>';
-                var_dump($response);
+                echo 'Sended';
                 echo '</pre>';
             },
             function (\Exception $exception) {

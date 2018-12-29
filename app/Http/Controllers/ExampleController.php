@@ -9,6 +9,8 @@ use React\EventLoop\Factory;
 use unreal4u\TelegramAPI\HttpClientRequestHandler;
 use unreal4u\TelegramAPI\Telegram\Methods\SendPhoto;
 use unreal4u\TelegramAPI\TgLog;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ExampleController extends Controller
 {
@@ -163,29 +165,21 @@ class ExampleController extends Controller
         // $p->active = "";
         // $p->save();
     }
-
     public function getImagesJSON()
     {
-        $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/";
         // $file_path = realpath(__DIR__ . '/../../../database/images.json');
-        // return json_decode(file_get_contents($file_path), true);
-        dd(json_decode(file_get_contents($file_path), true) );
-        // $client = new Client();
-        // $response = $client->get($url)->getBody();
-
-        // dd($response);
+        $file_path = "https://api.jsonbin.io/b/5c2786d3412d482eae5759f4/latest";
+        return json_decode(file_get_contents($file_path), true);
     }
     public function setJSONImages($images)
     {
         $client = new Client();
+        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
         $r = $client->request('PUT', 'https://api.jsonbin.io/b/5c2786d3412d482eae5759f4', [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],
             'body' => json_encode($images),
         ]);
-        
-        // $file_path = realpath(__DIR__ . '/../../../database/images.json');
-        // return file_put_contents($file_path,json_encode($images));
     }
 }
