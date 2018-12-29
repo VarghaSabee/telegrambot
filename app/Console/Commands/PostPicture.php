@@ -22,7 +22,7 @@ class PostPicture extends Command
      *
      * @var string
      */
-    protected $signature = 'post:picture';
+    protected $signature = 'schedule:cron {--queue}';
 
     /**
      * The console command description.
